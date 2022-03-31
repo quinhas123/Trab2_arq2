@@ -12,6 +12,7 @@ DIV - Não feito
 
 MOD - Não feito
 
+
 Lógicas: 
 
 NOT - Não feito
@@ -22,6 +23,7 @@ AND - Não feito
 
 MIR - Não feito
 
+
 Controle: 
 
 PUSH - Não feito
@@ -29,6 +31,8 @@ PUSH - Não feito
 POP - Não feito
 
 
+
 Entrada e Saída:
 
 OUT - Não feito
+
