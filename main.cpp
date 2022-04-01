@@ -11,9 +11,9 @@ int main() {
     int lineCounter = 0;                                    // Para identificar a linha de erro
 
     if(assemblyCode.is_open()) {
-        string codeLine;
+        string linha;
 
-        while(getline(assemblyCode, codeLine)) {            // Laço para ir 'pegando' as linhas do arquivo
+        while(getline(assemblyCode, linha)) {               // Laço para ir 'pegando' as linhas do arquivo
             string instrucao;
             string operando = "\0";
             bool ehinstrucao = true;                        // Ajuda a identificar quando deve concatenar os caracteres do arquivo a 'instrucao' ou a 'operando'
@@ -56,7 +56,51 @@ int main() {
             cout << "\ntem operando = " << temOperando;
 
             if(instrucao == "PUSH" && !temOperando) {
-                cout << "\n\nERRO: INSTRUCAO PUSH SEM OPERANDO [linha " << lineCounter << "]";
+                cout << "[000] - Erro de sintaxe. Eh esperado que as instrucoes possuam zero (POP) ou um operandos (PUSH $R). -> [linha " << lineCounter << "]";
+                break;
+            }else if(instrucao == "POP" && temOperando) {
+                cout << "[000] - Erro de sintaxe. Eh esperado que as instrucoes possuam zero (POP) ou um operandos (PUSH $R). -> [linha " << lineCounter << "]";
+                break;         
+            }else if((instrucao == "CLEAR" || instrucao == "ADD" || instrucao == "SUB" || instrucao == "MUL" || instrucao == "DIV" || instrucao == "MOD") && temOperando) {
+                cout << "[002] - Argumento inválido -> [Linha " << lineCounter << "]";
+                break;
+            }
+
+            if(instrucao == "CLEAR") {
+
+            }else if(instrucao == "ADD") {
+
+            }else if(instrucao == "SUB") {
+
+            }else if(instrucao == "MUL") {
+
+            }else if(instrucao == "DIV") {
+
+            }else if(instrucao == "MOD") {
+
+            }else if(instrucao == "NOT") {
+
+            }else if(instrucao == "OR") {
+                
+            }else if(instrucao == "AND") {
+
+            }else if(instrucao == "MIR") {
+
+            }else if(instrucao == "PUSH") {
+
+                // se stack estiver cheia, retornar erro:
+                // cout << "[004] - PUSH em stack vazia -> [Linha " << lineCounter << "]";
+                // break; 
+            }else if(instrucao == "POP") {
+
+                // se stack estiver vazia, retornar erro:
+                // cout << "[003] - POP em stack vazia -> [Linha " << lineCounter << "]";
+                // break; 
+            }else if(instrucao == "OUT") {
+
+            }else {
+                cout << "[001] - Instrucao invalida. Ex. POOP em vez de POP. -> [Linha " << lineCounter << "]";
+                break; 
             }
         }
     }
