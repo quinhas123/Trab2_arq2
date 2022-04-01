@@ -2,20 +2,20 @@
 
 Aritméticas:
 
-ADD - Não feito
+ADD - Feito
 
-SUB - Não feito
+SUB - Feito
 
-MUL - Não feito
+MUL - Feito
 
-DIV - Não feito
+DIV - Feito
 
-MOD - Não feito
+MOD - Feito
 
 
 Lógicas: 
 
-NOT - Não feito
+NOT - Feito
 
 OR - Não feito
 
@@ -34,5 +34,5 @@ POP - Não feito
 
 Entrada e Saída:
 
-OUT - Não feito
+OUT - Feito
 

@@ -18,27 +18,30 @@ int main() {
             string operando = "\0";
             bool ehinstrucao = true;                        // Ajuda a identificar quando deve concatenar os caracteres do arquivo a 'instrucao' ou a 'operando'
             bool temOperando;                               // Para gerar erro sobre comandos que deveriam ou não possuir operando
+            int i = 0;
 
             lineCounter++;
             
-            if(linha[0] == ';') {                           // Se a linha já começar com comentário já será ignorada
+            while(codeLine[i] == ' ' || codeLine[i] == '\t'){	// Ignora espaços no começo da linha
+                i++;
+            }
+
+            if(codeLine[i] == ';') {                            // Se a linha já começar com comentário já será ignorada
                 continue;
             }
 
-            for(int i = 0; i < linha.size(); i++) {         // Percorre cada um dos caracteres da linha atual
-                if(linha[i] == ';') {                       // Se/Quando encontrar comentário já pula para a próxima
-                    break;
-                }
-                
-                if(linha[i] == ' ') {                       // Quando encontrar espaço passa a concatenar os caracteres a 'operando'
+            while(i < codeLine.size() && codeLine[i] != ';'){   // Percorre cada um dos caracteres da linha atual
+                if(codeLine[i] == ' '){                         // Quando encontrar espaço passa a concatenar os caracteres a 'operando'
                     ehinstrucao = false;
-                }else {
-                    if(ehinstrucao) {
-                        instrucao += linha[i];
-                    }else {
-                        operando += linha[i];
-                    }
                 }
+                else if(ehinstrucao){
+                    instrucao += codeLine[i];
+                }
+                else{
+                    operando += codeLine[i];
+                }
+
+                i++;
             }
         
             if(operando == "\0\r") {                        // Atualiza a flag de operando considerando se é apenas a quebra de linha ou não
@@ -47,10 +50,10 @@ int main() {
                 temOperando = true;
             }
 
-            // cout << "\n####";
-            // cout << "\ninstrucao =" << instrucao;
-            // cout << "\noperando =" << operando;
-            // cout << "\ntem operando = " << temOperando;
+            cout << "\n";
+            cout << "\ninstrucao = " << instrucao;
+            cout << "\noperando = " << operando;
+            cout << "\ntem operando = " << temOperando;
 
             if(instrucao == "PUSH" && !temOperando) {
                 cout << "[000] - Erro de sintaxe. Eh esperado que as instrucoes possuam zero (POP) ou um operandos (PUSH $R). -> [linha " << lineCounter << "]";
