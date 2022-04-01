@@ -18,14 +18,19 @@ int main() {
             string operando = "\0";
             bool ehinstrucao = true;                        // Ajuda a identificar quando deve concatenar os caracteres do arquivo a 'instrucao' ou a 'operando'
             bool temOperando;                               // Para gerar erro sobre comandos que deveriam ou não possuir operando
+			int j = 0;
 
             lineCounter++;
             
-            if(codeLine[0] == ';') {                        // Se a linha já começar com comentário já será ignorada
+			while(codeLine[j] == ' ' || codeLine[j] == '\t'){	// Ignora espaços no começo da linha
+				j++;
+			}
+
+            if(codeLine[j] == ';') {                        // Se a linha já começar com comentário já será ignorada
                 continue;
             }
 
-            for(int i = 0; i < codeLine.size(); i++) {      // Percorre cada um dos caracteres da linha atual
+            for(int i = j; i < codeLine.size(); i++) {      // Percorre cada um dos caracteres da linha atual
                 if(codeLine[i] == ';') {                    // Se/Quando encontrar comentário já pula para a próxima
                     break;
                 }
@@ -48,9 +53,9 @@ int main() {
                 temOperando = true;
             }
 
-            cout << "\n####";
-            cout << "\ninstrucao =" << instrucao;
-            cout << "\noperando =" << operando;
+            cout << "\n";
+            cout << "\ninstrucao = " << instrucao << "|";
+            cout << "\noperando = " << operando << "|";
             cout << "\ntem operando = " << temOperando;
 
             if(instrucao == "PUSH" && !temOperando) {
