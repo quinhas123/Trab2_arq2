@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <math.h>
 
+// Teste
+
 int main(){
     int pilha[128];
     int registrador;
@@ -12,6 +14,9 @@ int main(){
     registrador = out(pilha, 1);
 }
 
+//
+
+// Funções recebem a pilha e o índice do topo da pilha como parâmetros. As funções cujo resultado tem que ser salvo no registrador tem retorno.
 int add(int *pilha, int ultimonum){
     return pilha[ultimonum] + pilha[ultimonum-1];
 }
