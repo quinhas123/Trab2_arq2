@@ -18,13 +18,13 @@ int main() {
             string operando = "\0";
             bool ehinstrucao = true;                        // Ajuda a identificar quando deve concatenar os caracteres do arquivo a 'instrucao' ou a 'operando'
             bool temOperando;                               // Para gerar erro sobre comandos que deveriam ou não possuir operando
-			int j = 0;
+            int j = 0;
 
             lineCounter++;
             
-			while(codeLine[j] == ' ' || codeLine[j] == '\t'){	// Ignora espaços no começo da linha
-				j++;
-			}
+            while(codeLine[j] == ' ' || codeLine[j] == '\t'){	// Ignora espaços no começo da linha
+                j++;
+            }
 
             if(codeLine[j] == ';') {                        // Se a linha já começar com comentário já será ignorada
                 continue;
