@@ -18,24 +18,20 @@ int main() {
             string operando = "\0";
             bool ehinstrucao = true;                        // Ajuda a identificar quando deve concatenar os caracteres do arquivo a 'instrucao' ou a 'operando'
             bool temOperando;                               // Para gerar erro sobre comandos que deveriam ou não possuir operando
-            int j = 0;
+            int i = 0;
 
             lineCounter++;
             
-            while(codeLine[j] == ' ' || codeLine[j] == '\t'){	// Ignora espaços no começo da linha
-                j++;
+            while(codeLine[i] == ' ' || codeLine[i] == '\t'){	// Ignora espaços no começo da linha
+                i++;
             }
 
-            if(codeLine[j] == ';') {                        // Se a linha já começar com comentário já será ignorada
+            if(codeLine[i] == ';') {                            // Se a linha já começar com comentário já será ignorada
                 continue;
             }
 
-            for(int i = j; i < codeLine.size(); i++) {      // Percorre cada um dos caracteres da linha atual
-                if(codeLine[i] == ';') {                    // Se/Quando encontrar comentário já pula para a próxima
-                    break;
-                }
-                
-                if(codeLine[i] == ' '){                    // Quando encontrar espaço passa a concatenar os caracteres a 'operando'
+            while(i < codeLine.size() && codeLine[i] != ';'){   // Percorre cada um dos caracteres da linha atual
+                if(codeLine[i] == ' '){                         // Quando encontrar espaço passa a concatenar os caracteres a 'operando'
                     ehinstrucao = false;
                 }
                 else if(ehinstrucao){
@@ -44,6 +40,8 @@ int main() {
                 else{
                     operando += codeLine[i];
                 }
+
+                i++;
             }
         
             if(operando == "\0\r") {                        // Atualiza a flag de operando considerando se é apenas a quebra de linha ou não
@@ -53,8 +51,8 @@ int main() {
             }
 
             cout << "\n";
-            cout << "\ninstrucao = " << instrucao << "|";
-            cout << "\noperando = " << operando << "|";
+            cout << "\ninstrucao = " << instrucao;
+            cout << "\noperando = " << operando;
             cout << "\ntem operando = " << temOperando;
 
             if(instrucao == "PUSH" && !temOperando) {
