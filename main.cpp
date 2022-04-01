@@ -35,16 +35,15 @@ int main() {
                     break;
                 }
                 
-                if(codeLine[i] == ' ') {                    // Quando encontrar espaço passa a concatenar os caracteres a 'operando'
+                if(codeLine[i] == ' '){                    // Quando encontrar espaço passa a concatenar os caracteres a 'operando'
                     ehinstrucao = false;
-                }else {
-                    if(ehinstrucao) {
-                        instrucao += codeLine[i];
-                    }else {
-                        operando += codeLine[i];
-                    }
                 }
-
+                else if(ehinstrucao){
+                    instrucao += codeLine[i];
+                }
+                else{
+                    operando += codeLine[i];
+                }
             }
         
             if(operando == "\0\r") {                        // Atualiza a flag de operando considerando se é apenas a quebra de linha ou não
