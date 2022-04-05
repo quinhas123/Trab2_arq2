@@ -54,3 +54,7 @@ void inc(int *pilha, int ultimonum){
 int pushr(int *pilha, int ultimonum){
     return pilha[ultimonum];
 }
+
+int sub2(int *pilha, int ultimonum){
+    return pilha[ultimonum-1]-pilha[ultimonum-2];
+}
