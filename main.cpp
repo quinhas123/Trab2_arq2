@@ -22,7 +22,7 @@ int main() {
 // ##################################################################
 
     std::ifstream assemblyCode;
-    assemblyCode.open("raiz-quadrada.txt");                     // Mudar o nome para o arquivo desejado
+    assemblyCode.open("bhaskara.txt");                     // Mudar o nome para o arquivo desejado
 
     vector<string> labels;
     vector<int> labelsLinhas;
@@ -108,6 +108,9 @@ int main() {
                 if(codeLine[i] == ' '){                         // Quando encontrar espaço passa a concatenar os caracteres a 'operando'
                     ehinstrucao = false;
                 }
+                // else if(codeLine[i] == '\t') {
+                //     continue;
+                // }
                 else if(ehinstrucao){
                     instrucao += codeLine[i];
                 }
@@ -236,6 +239,9 @@ int main() {
             else if(instrucao == "SUB") {
                 registrador = sub(pilha);
             }
+            else if(instrucao == "SUB2") {
+                sub2(pilha);
+            }
             else if(instrucao == "MUL") {
                 registrador = mul(pilha);
             }
@@ -244,7 +250,7 @@ int main() {
             }
             else if(instrucao == "MOD") {
                 registrador = mod(pilha);
-                cout << "\n" << registrador;
+                // cout << "\n" << registrador;
             }
             else if(instrucao == "NOT") {
 
@@ -276,6 +282,9 @@ int main() {
             else if(instrucao == "PUSHR") {
                 registrador = pushr(pilha);
             }
+            else if(instrucao == "PUSHM1") {
+                m1 = pushm1(pilha);
+            }
             else if(instrucao == "POP") {
                 if(pilha.size() == 0) {
                     cout << "[003] - POP em pilha vazia -> [Linha " << lineCounter << "]";
@@ -294,6 +303,11 @@ int main() {
                 cout << "\n[001] - Instrucao invalida. Ex. POOP em vez de POP. -> [Linha " << lineCounter << "]";
                 break; 
             }
+
+            // for(int i = 0; i < pilha.size(); i++) {
+            //     cout << pilha[i] << " ";
+            // }
+            // cout << "\n\n";
         }
     }
 
