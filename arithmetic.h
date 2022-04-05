@@ -25,3 +25,7 @@ int divis(vector<int>& pilha){
 int mod(vector<int>& pilha){
     return pilha[pilha.size() - 1] % pilha[pilha.size() - 2];
 }
+
+int sub2(vector<int>& pilha){
+    return pilha[pilha.size() - 2] - pilha[pilha.size() - 3];
+}
