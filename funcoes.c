@@ -44,3 +44,13 @@ void not(int *pilha, int ultimonum){
 void out(int *pilha, int ultimonum){
     printf("Topo da pilha = %d", pilha[ultimonum]);
 }
+
+//Incrementa um ao topo da pilha
+void inc(int *pilha, int ultimonum){
+    pilha[ultimonum] = pilha[ultimonum]+1;
+}
+
+//Empurra topo da pilha para o registrador
+int pushr(int *pilha, int ultimonum){
+    return pilha[ultimonum];
+}
