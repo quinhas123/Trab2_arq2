@@ -5,6 +5,7 @@
 #include <algorithm>    // para uso do find, encontrar string específica no vector
 #include "arithmetic.h"                                     // importações dos arquivos externos '.h' contendo as funções criadas
 #include "control.h"
+#include "logic.h"
 
 using namespace std;
 
@@ -16,10 +17,12 @@ int main() {
 // ####################### Para fins de teste #######################
     vector<int> pilha;
     int registrador;
+    int m1;
+    int m2;
 // ##################################################################
 
     std::ifstream assemblyCode;
-    assemblyCode.open("n_numprimo.txt");                     // Mudar o nome para o arquivo desejado
+    assemblyCode.open("raiz-quadrada.txt");                     // Mudar o nome para o arquivo desejado
 
     vector<string> labels;
     vector<int> labelsLinhas;
@@ -69,7 +72,6 @@ int main() {
         }
 
         lineCounter = 0;
-
         // limpa as flags do arquivo para percorre-lo novamente e agora compilar o código
         assemblyCode.clear();
         assemblyCode.seekg(0);
@@ -80,6 +82,8 @@ int main() {
             bool ehinstrucao = true;                        // Ajuda a identificar quando deve concatenar os caracteres do arquivo a 'instrucao' ou a 'operando'
             bool temOperando;                               // Para gerar erro sobre comandos que deveriam ou não possuir operando
             bool operandoEhRegistrador;                     // Flag para identificar se o operando passado foi um número ou o próprio registrador. Ex: PUSH 8 ou PUSH $R
+            bool operandoEhM1;
+            bool operandoEhM2;
             bool operandoEhLabel = false;
             int numOperando;                                // Guarda o valor do operando após ele ser convertido de string para int
             int i = 0;
@@ -130,15 +134,34 @@ int main() {
             if(temOperando) {
                 if(operando == "$R") {                      // Atualiza a flag do tipo do operando
                     operandoEhRegistrador = true;
-                }else if(find(labels.begin(), labels.end(), operando) != labels.end()){
+                }
+                else if(operando == "M1") {
+                    // cout << operando;
+                    operandoEhM1 = true;
+                }
+                else if(operando == "M2") {
+                    // cout << operando;
+                    operandoEhM2 = true;
+                }
+                else if(find(labels.begin(), labels.end(), operando) != labels.end()){
                     operandoEhLabel = true;
-                }else {
+                }
+                else {
                     operandoEhRegistrador = false;
+                    operandoEhM1 = false;
+                    operandoEhM2 = false;
                 }
 
                 if(operandoEhRegistrador) {
                     numOperando = registrador;              // Se operando == $R, então o valor de $R é passado para numOperando
-                }else if(!operandoEhLabel) {
+                }
+                else if(operandoEhM1) {
+                    numOperando = m1;
+                }
+                else if(operandoEhM2) {
+                    numOperando = m2;
+                }
+                else if(!operandoEhLabel) {
                     numOperando = stoi(operando);           // Se operando tiver sido algum número, converte de string para int (stoi)
                 }
             }
@@ -147,7 +170,17 @@ int main() {
                 continue;
             }
 
-            if(instrucao == "JMP" || instrucao == "IF0") {
+            if(instrucao == "JMP" || instrucao == "IF0" || instrucao == "IF1" || instrucao == "JGE") {
+                if(instrucao == "IF0" && registrador != 0) {
+                    continue;
+                }
+                if(instrucao == "IF1" && registrador != 1) {
+                    continue;
+                }
+                if(instrucao == "JGE" && m1 < registrador) {
+                    continue;
+                }
+
                 int indiceLabel;
 
                 for(int i = 0; i < labels.size(); i++) {
@@ -185,19 +218,33 @@ int main() {
 
             }
             else if(instrucao == "ADD") {
-                registrador = add(pilha, pilha.size() - 1);
+                registrador = add(pilha);
+            }
+            else if(instrucao == "INC") {
+                inc(pilha);
+            }else if(instrucao == "INCR") {
+                if(operando == "M1") {
+                    m1++;
+                }
+                else if(operando == "M2") {
+                    m2++;
+                }
+                else if(operando == "$R") {
+                    registrador++;
+                }
             }
             else if(instrucao == "SUB") {
-
+                registrador = sub(pilha);
             }
             else if(instrucao == "MUL") {
-
+                registrador = mul(pilha);
             }
             else if(instrucao == "DIV") {
-
+                registrador = divis(pilha);
             }
             else if(instrucao == "MOD") {
-
+                registrador = mod(pilha);
+                cout << "\n" << registrador;
             }
             else if(instrucao == "NOT") {
 
@@ -211,14 +258,23 @@ int main() {
             else if(instrucao == "MIR") {
 
             }
+            else if(instrucao == "MOVM1") {
+                m1 = numOperando;
+            }
+            else if(instrucao == "MOVM2") {
+                m2 = numOperando;
+            }
             else if(instrucao == "PUSH") {
                 if(pilha.size() == 128) {
-                    cout << "\n" << pilha.size();
+                    // cout << "\n" << pilha.size();
                     cout << "\n[004] - PUSH em pilha cheia -> [Linha " << lineCounter << "]";
                     break; 
                 }else {
                     push(pilha, numOperando);
                 }
+            }
+            else if(instrucao == "PUSHR") {
+                registrador = pushr(pilha);
             }
             else if(instrucao == "POP") {
                 if(pilha.size() == 0) {
@@ -233,8 +289,8 @@ int main() {
                 cout << "\n\nFim do programa.";
             }
             else {
-                // cout << "\n\n" << instrucao;
-                // cout << "\n\n" << instrucao.length();
+                cout << "\n\n" << instrucao;
+                cout << "\n\n" << instrucao.length();
                 cout << "\n[001] - Instrucao invalida. Ex. POOP em vez de POP. -> [Linha " << lineCounter << "]";
                 break; 
             }
