@@ -2,22 +2,26 @@
 
 using namespace std;
 
-int add(vector<int>& pilha, int ultimonum){
-    return pilha[ultimonum] + pilha[ultimonum-1];
+int add(vector<int>& pilha){
+    return pilha[pilha.size() - 1] + pilha[pilha.size() - 2];
 }
 
-int sub(int *pilha, int ultimonum){
-    return pilha[ultimonum] - pilha[ultimonum-1];
+void inc(vector<int>& pilha){
+    pilha[pilha.size() - 1] += 1;
 }
 
-int mul(int *pilha, int ultimonum){
-    return pilha[ultimonum] * pilha[ultimonum-1];
+int sub(vector<int>& pilha){
+    return pilha[pilha.size() - 1] - pilha[pilha.size() - 2];
 }
 
-int divis(int *pilha, int ultimonum){
-    return pilha[ultimonum] / pilha[ultimonum-1];
+int mul(vector<int>& pilha){
+    return pilha[pilha.size() - 1] * pilha[pilha.size() - 2];
 }
 
-int mod(int *pilha, int ultimonum){
-    return pilha[ultimonum] % pilha[ultimonum-1];
+int divis(vector<int>& pilha){
+    return pilha[pilha.size() - 1] / pilha[pilha.size() - 2];
+}
+
+int mod(vector<int>& pilha){
+    return pilha[pilha.size() - 1] % pilha[pilha.size() - 2];
 }
