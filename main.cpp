@@ -22,7 +22,7 @@ int main() {
 // ##################################################################
 
     std::ifstream assemblyCode;
-    assemblyCode.open("bhaskara.txt");                     // Mudar o nome para o arquivo desejado
+    assemblyCode.open("bhaskara-2.txt");                     // Mudar o nome para o arquivo desejado
 
     vector<string> labels;
     vector<int> labelsLinhas;
@@ -100,7 +100,7 @@ int main() {
                 i++;
             }
 
-            if(codeLine[i] == ';') {                            // Se a linha já começar com comentário será ignorada
+            if(codeLine[i] == ';' || codeLine.empty()) {                            // Se a linha já começar com comentário será ignorada
                 continue;
             }
 
@@ -240,7 +240,7 @@ int main() {
                 registrador = sub(pilha);
             }
             else if(instrucao == "SUB2") {
-                sub2(pilha);
+                registrador = sub2(pilha);
             }
             else if(instrucao == "MUL") {
                 registrador = mul(pilha);
@@ -250,7 +250,6 @@ int main() {
             }
             else if(instrucao == "MOD") {
                 registrador = mod(pilha);
-                // cout << "\n" << registrador;
             }
             else if(instrucao == "NOT") {
 
@@ -272,7 +271,6 @@ int main() {
             }
             else if(instrucao == "PUSH") {
                 if(pilha.size() == 128) {
-                    // cout << "\n" << pilha.size();
                     cout << "\n[004] - PUSH em pilha cheia -> [Linha " << lineCounter << "]";
                     break; 
                 }else {
@@ -294,12 +292,12 @@ int main() {
                 }
             }
             else if(instrucao == "OUT") {
-                cout << "\n\nTopo da pilha: " << pilha[pilha.size() - 1];
-                cout << "\n\nFim do programa.";
+                cout << "\nTopo da pilha: " << pilha[pilha.size() - 1] << "\n";
+                // cout << "\n\nFim do programa.";
             }
             else {
-                cout << "\n\n" << instrucao;
-                cout << "\n\n" << instrucao.length();
+                // cout << "\n\n" << instrucao;
+                // cout << "\n\n" << instrucao.length();
                 cout << "\n[001] - Instrucao invalida. Ex. POOP em vez de POP. -> [Linha " << lineCounter << "]";
                 break; 
             }
