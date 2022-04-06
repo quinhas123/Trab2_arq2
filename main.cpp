@@ -1,9 +1,9 @@
 #include <iostream>
-#include <fstream>
+#include <fstream>                          // para ler o arquivo com o código
 #include <string>
 #include <vector>
-#include <algorithm>    // para uso do find, encontrar string específica no vector
-#include "arithmetic.h"                                     // importações dos arquivos externos '.h' contendo as funções criadas
+#include <algorithm>                        // para uso do find, encontrar string específica no vector
+#include "arithmetic.h"                     // importações dos arquivos externos '.h' contendo as funções criadas
 #include "control.h"
 #include "logic.h"
 
@@ -14,18 +14,16 @@ int main() {
     cout << "\n\t\tSIMULADOR MAQUINA DE PILHA";
     cout << "\n########################################################";
 
-// ####################### Para fins de teste #######################
     vector<int> pilha;
-    int registrador;
+    int registrador;                                            // $R
     int m1;
     int m2;
-// ##################################################################
 
-    std::ifstream assemblyCode;
-    assemblyCode.open("bhaskara-2.txt");                     // Mudar o nome para o arquivo desejado
+    ifstream assemblyCode;
+    assemblyCode.open("./programas-validacao-exemplos/valida-mir.txt");                     // Mudar o nome para o arquivo desejado
 
-    vector<string> labels;
-    vector<int> labelsLinhas;
+    vector<string> labels;                                      // guarda apenas os nomes dos labels existentes no arquivos
+    vector<int> labelsLinhas;                                   // guarda apenas as linhas do arquivo onde estão as labels, para uso posterior de possíveis jumps
 
     if(assemblyCode.is_open()) {
         string codeLine;
@@ -64,10 +62,10 @@ int main() {
                 i++;
             }
 
-            if(instrucao.back() == ':') {
-                instrucao.pop_back();                       // remove os : do label
+            if(instrucao.back() == ':') {                   // se o último caractere da 'instrucao' for : então é tratada como label
+                instrucao.pop_back();                       // remove o : do label
                 labels.push_back(instrucao);                // adiciona o label ao vetor de labels
-                labelsLinhas.push_back(lineCounter + 1);     // adiciona a linha + 1 do label ao vetor de linhas de labels. + 1 para pular para a região logo após label
+                labelsLinhas.push_back(lineCounter + 1);    // adiciona a linha + 1 do label ao vetor de linhas de labels. + 1 para pular para a região logo após label
             }
         }
 
@@ -91,26 +89,23 @@ int main() {
             lineCounter++;
 
             if(flagJump) {
-                if(lineCounter != linhaLabel) {             // se a flag de jump estiver ligada, percorre todas as linhas até chegar na desejada
-                    continue;
+                if(lineCounter != linhaLabel) {             // se a flag de jump estiver ligada, percorre todas as linhas até chegar na desejada (label procurado pelo jump)
+                    continue;                               // se a linha atual não for a procurada, pula para a próxima iteração para ler a próxima linha direto
                 }
             }
             
-            while(codeLine[i] == ' ' || codeLine[i] == '\t'){	// Ignora espaços no começo da linha
+            while(codeLine[i] == ' ' || codeLine[i] == '\t'){	// Ignora espaços e tabs no começo da linha
                 i++;
             }
 
-            if(codeLine[i] == ';' || codeLine.empty()) {                            // Se a linha já começar com comentário será ignorada
+            if(codeLine[i] == ';' || codeLine.empty()) {        // A linha será ignorada se já começar com comentário ou estiver vazia
                 continue;
             }
 
-            while(i < codeLine.size() && codeLine[i] != ';'){   // Percorre cada um dos caracteres da linha atual
+            while(i < codeLine.size() && codeLine[i] != ';'){   // Percorre cada um dos caracteres da linha atual, enquanto ela não terminar ou enquanto não encontrar registro de comentário
                 if(codeLine[i] == ' '){                         // Quando encontrar espaço passa a concatenar os caracteres a 'operando'
                     ehinstrucao = false;
                 }
-                // else if(codeLine[i] == '\t') {
-                //     continue;
-                // }
                 else if(ehinstrucao){
                     instrucao += codeLine[i];
                 }
@@ -121,7 +116,7 @@ int main() {
                 i++;
             }
         
-            if(operando == "\0\r") {                        // Atualiza a flag de operando considerando se é apenas a quebra de linha ou não
+            if(operando == "\0\r") {                        // Atualiza a flag de operando considerando se há algum conteúdo ou não
                 temOperando = false;
             }else {
                 temOperando = true;
@@ -139,24 +134,22 @@ int main() {
                     operandoEhRegistrador = true;
                 }
                 else if(operando == "M1") {
-                    // cout << operando;
                     operandoEhM1 = true;
                 }
                 else if(operando == "M2") {
-                    // cout << operando;
                     operandoEhM2 = true;
                 }
-                else if(find(labels.begin(), labels.end(), operando) != labels.end()){
+                else if(find(labels.begin(), labels.end(), operando) != labels.end()){  // se o operando passado não for nenhum dos registradores, checa se é label
                     operandoEhLabel = true;
                 }
-                else {
+                else {  // senão, atualiza as flags e trata o operando como número
                     operandoEhRegistrador = false;
                     operandoEhM1 = false;
                     operandoEhM2 = false;
                 }
 
-                if(operandoEhRegistrador) {
-                    numOperando = registrador;              // Se operando == $R, então o valor de $R é passado para numOperando
+                if(operandoEhRegistrador) {                 // Se o operando for algum dos registradores, passa o valor do registrador para numOperando
+                    numOperando = registrador;
                 }
                 else if(operandoEhM1) {
                     numOperando = m1;
@@ -169,22 +162,22 @@ int main() {
                 }
             }
 
-            if(instrucao.back() == ':') {
+            if(instrucao.back() == ':') {                   // Se a instrução tiver sido label, apenas pula para a próxima iteração (os labels já foram tratados na primeira leitura do arquivo)
                 continue;
             }
 
             if(instrucao == "JMP" || instrucao == "IF0" || instrucao == "IF1" || instrucao == "JGE") {
-                if(instrucao == "IF0" && registrador != 0) {
+                if(instrucao == "IF0" && registrador != 0) {    // Se tentou fazer um jump com a condição $R == 0, mas o valor de $R != 0, apenas ignora
                     continue;
                 }
-                if(instrucao == "IF1" && registrador != 1) {
+                if(instrucao == "IF1" && registrador != 1) {    // Se tentou fazer jump com a condição $R == 1, mas o valor de $R != 1, apenas ignora
                     continue;
                 }
-                if(instrucao == "JGE" && m1 < registrador) {
+                if(instrucao == "JGE" && m1 < registrador) {    // Se tentou fazer jump com a condição M1 >= $R, mas M1 < $R, apenas ignora
                     continue;
                 }
 
-                int indiceLabel;
+                int indiceLabel;                                // Salva o índice do label no array de labels, para procurar a sua linha correspondente no array de linhas
 
                 for(int i = 0; i < labels.size(); i++) {
                     if(labels[i] == operando) {
@@ -193,10 +186,10 @@ int main() {
                 }
 
                 linhaLabel = labelsLinhas[indiceLabel];
-                lineCounter = 0;
-                flagJump = true;
+                lineCounter = 0;                                // Reseta o apontador da linha atual para 0, para percorrer o arquivo novamente
+                flagJump = true;                                // Ativa o estado de JUMP, a partir da próxima leitura do arquivo a 'linhaLabel' será a linha inicial de leitura
 
-                assemblyCode.clear();
+                assemblyCode.clear();                           // Reseta as flags do arquivo para que ele possa ser lido por getline novamente do início
                 assemblyCode.seekg(0);
                 continue;
             }else {
@@ -212,13 +205,13 @@ int main() {
                 break;         
             }
             else if((instrucao == "CLEAR" || instrucao == "ADD" || instrucao == "SUB" || instrucao == "MUL" || instrucao == "DIV" || instrucao == "MOD") && temOperando) {
-                // Dispara erro caso alguma das instruções aritméticas tenham sido passadas com operando
-                cout << "\n[002] - Argumento inválido -> [Linha " << lineCounter << "]";
+                // Dispara erro caso alguma das instruções aritméticas, ou de controle (CLEAR), tenham sido passadas com operando
+                cout << "\n[002] - Argumento invalido -> [Linha " << lineCounter << "]";
                 break;
             }
 
             if(instrucao == "CLEAR") {
-
+                pilha.clear();
             }
             else if(instrucao == "ADD") {
                 registrador = add(pilha);
@@ -252,7 +245,7 @@ int main() {
                 registrador = mod(pilha);
             }
             else if(instrucao == "NOT") {
-
+                notLogic(pilha);
             }
             else if(instrucao == "OR") {
                 
@@ -261,7 +254,7 @@ int main() {
 
             }
             else if(instrucao == "MIR") {
-
+                mir(pilha);
             }
             else if(instrucao == "MOVM1") {
                 m1 = numOperando;
@@ -280,9 +273,6 @@ int main() {
             else if(instrucao == "PUSHR") {
                 registrador = pushr(pilha);
             }
-            else if(instrucao == "PUSHM1") {
-                m1 = pushm1(pilha);
-            }
             else if(instrucao == "POP") {
                 if(pilha.size() == 0) {
                     cout << "[003] - POP em pilha vazia -> [Linha " << lineCounter << "]";
@@ -293,11 +283,8 @@ int main() {
             }
             else if(instrucao == "OUT") {
                 cout << "\nTopo da pilha: " << pilha[pilha.size() - 1] << "\n";
-                // cout << "\n\nFim do programa.";
             }
             else {
-                // cout << "\n\n" << instrucao;
-                // cout << "\n\n" << instrucao.length();
                 cout << "\n[001] - Instrucao invalida. Ex. POOP em vez de POP. -> [Linha " << lineCounter << "]";
                 break; 
             }
@@ -305,7 +292,7 @@ int main() {
             // for(int i = 0; i < pilha.size(); i++) {
             //     cout << pilha[i] << " ";
             // }
-            // cout << "\n\n";
+            // cout << "\n";
         }
     }
 
