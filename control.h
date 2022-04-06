@@ -10,10 +10,6 @@ int pushr(vector<int>& pilha) {
     return pilha[pilha.size() - 1];
 }
 
-int pushm1(vector<int>& pilha) {
-    return pilha[pilha.size() - 1];
-}
-
 void pop(vector<int>& pilha) {
     pilha.pop_back();
 }
