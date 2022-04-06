@@ -2,21 +2,18 @@
 #include <stdlib.h>
 #include <math.h>
 
-// Teste
-
 int main(){
     int pilha[128];
-    int registrador;
+    int registrador, teste;
 
     pilha[0] = 5;
-    pilha[1] = 7;
+    pilha[1] = 8;
+    teste = 4;
 
-    registrador = out(pilha, 1);
+    registrador = or(pilha, 1, teste);
+    printf("%d", registrador);
 }
 
-//
-
-// Funções recebem a pilha e o índice do topo da pilha como parâmetros. As funções cujo resultado tem que ser salvo no registrador tem retorno.
 int add(int *pilha, int ultimonum){
     return pilha[ultimonum] + pilha[ultimonum-1];
 }
@@ -57,4 +54,12 @@ int pushr(int *pilha, int ultimonum){
 
 int sub2(int *pilha, int ultimonum){
     return pilha[ultimonum-1]-pilha[ultimonum-2];
+}
+
+int and(int *pilha, int ultimonum, int  registrador){
+    return pilha[ultimonum] & registrador;
+}
+
+int or(int *pilha, int ultimonum, int  registrador){
+    return pilha[ultimonum] | registrador;
 }
