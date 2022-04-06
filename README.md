@@ -4,8 +4,8 @@
 ++  [X] $R <br>
 ++  [X] Validar programa soma 4 e 8 <br>
 ++  [ ] Registradores e palavras com 16 bits <br>
-++  [ ] Pilha possui 128 palavras. <br>
-++  [ ] PC para o topo da pilha. <br>
+++  [X] Pilha possui 128 palavras. <br>
+++  [X] PC para o topo da pilha. <br>
 
 ##  operações aritméticas trabalhando sobre o topo da pilha e armazenando em $R
 ++  [X] ADD <br>
@@ -15,10 +15,10 @@
 ++  [X] MOD <br>
 
 ##  operações lógicas
-++  [ ] NOT <br>
+++  [X] NOT <br>
 ++  [ ] OR <br>
 ++  [ ] AND <br>
-++  [ ] MIR <br>
+++  [X] MIR <br>
 
 ##  operações de controle
 ++  [X] PUSH <br>
@@ -31,7 +31,7 @@
 ++  [X] Bhaskara --> R1 e R2 na pilha. <br>
 ++  [X] Raiz quadrada --> uma única resposta na pilha. <br>
 ++  [X] Cálculo do N-ésimo número primo --> única resposta na pilha. <br>
-++  [ ] Outra aplicação. <br>
+++  [X] Outra aplicação. <br>
 
 ##  erros básicos
 ++  [X] 000 - Erro de sintaxe - 0 ou 1 operandos (PUSH ou POP). <br>
@@ -61,7 +61,7 @@
 ++  [X] DIV <br>
 ++  [X] MOD <br>
 ++  [X] POP <br>
-++  [ ] NOT <br>
+++  [X] NOT <br>
 ++  [ ] OR <br>
 ++  [ ] AND <br>
 ++  [X] MIR
