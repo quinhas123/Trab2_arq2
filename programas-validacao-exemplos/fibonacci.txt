@@ -1,0 +1,47 @@
+;Cálculo do n-ésimo número da sequência de Fibonacci
+;Fn = Fn-1 + Fn-2
+;Primeiro número da pilha = contagem dos números 
+;inicio (contar números triviais na pilha (1, 1))
+PUSH 1 ;[1]
+PUSH 10 ;[1, N]
+SUB
+IF0 end
+POP ;[1]
+INC
+PUSH 10 ;[2, N]
+SUB
+IF0 end
+;inicialização para laço principal
+POP ;[2]
+PUSH 1 ;[2, 1]
+PUSH 1 ;[2, 1, 1]
+;laço principal
+laco:
+ADD ;$R = Fn-1  
+PUSH $R
+PUSHM1 ;M1 = Fn-2
+POP
+PUSHM2 ;M2 = Fn-1
+POP
+POP
+;teste para ver se acabou
+INC 
+PUSH 10 
+SUB 
+IF0 end2
+POP
+PUSH M2
+PUSH M1
+JMP laco
+;fim com número inicial
+end:
+POP 
+POP
+PUSH 1
+OUT
+;fim 
+end2:
+POP
+POP 
+PUSH M2
+OUT

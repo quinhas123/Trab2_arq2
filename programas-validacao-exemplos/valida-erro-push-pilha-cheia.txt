@@ -11,7 +11,7 @@ INCR $R
 
 JGE laco_preenche       ; M1 >= $R
 
-;PUSH 1
+PUSH 1
 OUT
 
 ;PUSH 1
