@@ -14,10 +14,10 @@ int main() {
     cout << "\n\t\tSIMULADOR MAQUINA DE PILHA";
     cout << "\n########################################################";
 
-    vector<int> pilha;
-    int registrador;                                            // $R
-    int m1;
-    int m2;
+    vector<int16_t> pilha;
+    int16_t registrador;                                            // $R
+    int16_t m1;
+    int16_t m2;
 
     ifstream assemblyCode;
     assemblyCode.open("./programas-validacao-exemplos/valida-mir.txt");                     // Mudar o nome para o arquivo desejado
@@ -273,9 +273,15 @@ int main() {
             else if(instrucao == "PUSHR") {
                 registrador = pushr(pilha);
             }
+            else if(instrucao == "PUSHM1") {
+                m1 = pushm1(pilha);
+            }
+            else if(instrucao == "PUSHM2") {
+                m2 = pushm2(pilha);
+            }
             else if(instrucao == "POP") {
                 if(pilha.size() == 0) {
-                    cout << "[003] - POP em pilha vazia -> [Linha " << lineCounter << "]";
+                    cout << "\n[003] - POP em pilha vazia -> [Linha " << lineCounter << "]";
                     break; 
                 }else {
                     pop(pilha);
