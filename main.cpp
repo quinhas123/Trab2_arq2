@@ -20,7 +20,7 @@ int main() {
     int16_t m2;
 
     ifstream assemblyCode;
-    assemblyCode.open("./programas-validacao-exemplos/valida-mir.txt");                     // Mudar o nome para o arquivo desejado
+    assemblyCode.open("./programas-validacao-exemplos/raiz-quadrada.txt");                     // Mudar o nome para o arquivo desejado
 
     vector<string> labels;                                      // guarda apenas os nomes dos labels existentes no arquivos
     vector<int> labelsLinhas;                                   // guarda apenas as linhas do arquivo onde estão as labels, para uso posterior de possíveis jumps
@@ -248,10 +248,10 @@ int main() {
                 notLogic(pilha);
             }
             else if(instrucao == "OR") {
-                
+                registrador = orLogic(pilha, registrador);
             }
             else if(instrucao == "AND") {
-
+                registrador = andLogic(pilha, registrador);
             }
             else if(instrucao == "MIR") {
                 mir(pilha);
