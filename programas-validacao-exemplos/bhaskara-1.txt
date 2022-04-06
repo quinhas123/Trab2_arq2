@@ -1,0 +1,194 @@
+; delta = b^2 - 4ac
+; r1 = (-b + sqrt(delta)) / 2a
+; r2 = (-b - sqrt(delta)) / 2a
+; substituir aa, bb e cc pelos coeficientes.
+; a = 1 | b = 8 | c = -9
+; r1 = 1 | r2 = -9
+
+; 2a
+PUSH 1                              ; [a]
+PUSH 2	                            ; [a, 2]
+MUL                                 ; [a, 2]	$R = 2a
+POP                                 ; [a]
+POP                                 ; []
+PUSH $R                             ; [2a]	    $R = 2a
+
+; 4ac
+PUSH -9		                        ; [2a, c]
+PUSH 1	                            ; [2a, c, a]
+MUL                                 ; [2a, c, a]	$R = a*c
+POP                                 ; [2a, a]
+POP                                 ; [2a]
+PUSH $R                             ; [2a, ac]	    $R = a*c
+PUSH 4                              ; [2a, ac, 4]	$R = a*c
+MUL                                 ; [2a, ac, 4]	$R = 4(ac)
+POP                                 ; [2a, ac]
+POP                                 ; [2a]
+PUSH $R                             ; [2a, 4ac]	    $R = 4(ac)
+
+; b^2
+PUSH 8                              ; [2a, 4ac, b]		$R = 4ac
+PUSH 8                              ; [2a, 4ac, b, b]
+MUL                                 ; [2a, 4ac, b, b] 	$R = b*b
+POP                                 ; [2a, 4ac, b]
+POP                                 ; [2a, 4ac]
+PUSH $R                             ; [2a, 4ac, b^2] 	$R = b*b
+
+; b^2 - 4ac
+SUB                                 ; [2a, 4ac, b^2] 	$R = b^2 - 4ac
+POP                                 ; [2a, 4ac]
+POP                                 ; [2a]
+PUSH $R                             ; [2a, b^2-4ac]		$R = b^2 - 4ac
+
+;sqrt(b^2-4ac)
+IF0 retornaReg                      ; if $R == 0 --> resultado = 0
+IF1 retornaReg                      ; if $R == 1 --> resultado = 1
+JMP calcula                         ; senão, efetua o cálculo
+
+retornaReg:                         ; retorna ele mesmo, poderia simplesmente encerrar
+JMP fim2
+
+calcula:
+MOVM2 1                             ; M2 = 1
+MOVM1 $R                            ; M1 = $R
+PUSH 1                              ; [2a, b^2-4ac, 1]
+PUSHR                               ; $R = 1
+POP                                 ; [2a, b^2-4ac]
+JGE laço                            ; Jump se M1 >= $R
+JMP fim                             ; Senão, encerra o cálculo
+
+laço:
+INCR M2                             ; M2++
+PUSH M2                             ; [2a, b^2-4ac, M2]
+PUSH M2                             ; [2a, b^2-4ac, M2, M2]
+MUL                                 ; [2a, b^2-4ac, M2, M2]     $R = M2 * M2
+POP                                 ; [2a, b^2-4ac, M2]
+POP                                 ; [2a, b^2-4ac]
+
+JGE laço                            ; Se M1 >= $R continua laço
+
+fim:
+PUSH 1                              ; [2a, b^2-4ac, 1]
+PUSH M2                             ; [2a, b^2-4ac, 1, M2]
+SUB                                 ; [2a, b^2-4ac, 1, M2]      $R = M2 - 1
+POP                                 ; [2a, b^2-4ac, 1]
+POP                                 ; [2a, b^2-4ac]
+fim2:
+POP                                 ; [2a]
+PUSH $R                             ; [2a, sqrt]
+
+; -b
+PUSH 8                              ; [2a, sqrt, b]
+PUSH -1                             ; [2a, sqrt, b, -1]
+MUL                                 ; [2a, sqrt, b, -1]	$R = -b
+POP                                 ; [2a, sqrt, b]
+POP                                 ; [2a, sqrt]
+PUSH $R                             ; [2a, sqrt, -b]	$R = -b
+
+; r1 = (-b + sqrt(delta)) / 2a
+ADD                                 ; [2a, sqrt, -b]	$R = -b + sqrt
+POP                                 ; [2a, sqrt]
+POP                                 ; [2a]
+PUSH $R                             ; [2a, -b+sqrt]
+DIV                                 ; [2a, -b+sqrt]		$R = (-b + sqrt) / 2a
+POP                                 ; [2a]
+POP                                 ; []
+PUSH $R                             ; [r1]
+
+; 2a
+PUSH 1                              ; [r1, a]
+PUSH 2                              ; [r1, a, 2]
+MUL                                 ; [r1, a, 2]		$R = 2a
+POP                                 ; [r1, a]
+POP                                 ; [r1]
+PUSH $R                             ; [r1, 2a]		    $R = 2a
+
+; 4ac
+PUSH -9                             ; [r1, 2a, c]
+PUSH 1                              ; [r1, 2a, c, a]
+MUL                                 ; [r1, 2a, c, a]	$R = a*c
+POP                                 ; [r1, 2a, c]
+POP                                 ; [r1, 2a]
+PUSH $R                             ; [r1, 2a, ac]
+PUSH 4                              ; [r1, 2a, ac, 4]
+MUL                                 ; [r1, 2a, ac, 4]	$R = 4(ac)
+POP                                 ; [r1, 2a, ac]
+POP                                 ; [r1, 2a]
+PUSH $R                             ; [r1, 2a, 4ac]		$R = 4(ac)
+
+; b^2
+PUSH 8                              ; [r1, 2a, 4ac, b]
+PUSH 8                              ; [r1, 2a, 4ac, b, b]
+MUL                                 ; [r1, 2a, 4ac, b, b] 	$R = b^2
+POP                                 ; [r1, 2a, 4ac, b]
+POP                                 ; [r1, 2a, 4ac]
+PUSH $R                             ; [r1, 2a, 4ac, b^2] 	$R = b^2
+
+; b^2 - 4ac
+SUB                                 ; [r1, 2a, 4ac, b^2] 	$R = b^2 - 4ac
+POP                                 ; [r1, 2a, 4ac]
+POP                                 ; [r1, 2a]
+PUSH $R                             ; [r1, 2a, b^2-4ac]	    $R = b^2 - 4ac
+
+;sqrt(b^2-4ac)
+IF0 retornaReg2
+IF1 retornaReg2
+JMP calcula2
+
+retornaReg2:
+POP                                 ; [2a]
+PUSH $R		                        ; [2a, sqrt]
+JMP fim4
+
+calcula2:
+MOVM2 1
+MOVM1 $R
+PUSH 1
+PUSHR
+POP
+JGE laço2
+JMP fim3
+
+laço2:
+INCR M2
+PUSH M2
+PUSH M2
+MUL
+POP
+POP
+
+JGE laço2
+
+fim3:
+PUSH 1
+PUSH M2
+SUB
+POP
+POP
+POP
+PUSH $R
+
+fim4:
+
+; -b
+PUSH 8                              ; [r1, 2a, sqrt, b]
+PUSH -1                             ; [r1, 2a, sqrt, b, -1]
+MUL                                 ; [r1, 2a, sqrt, b, -1]	$R = -b
+POP                                 ; [r1, 2a, sqrt, b]
+POP                                 ; [r1, 2a, sqrt]
+PUSH $R                             ; [r1, 2a, sqrt, -b]	$R = -b
+
+; r2 = (-b + sqrt(delta)) / 2a
+SUB                                 ; [r1, 2a, sqrt, -b]	$R = -b - sqrt
+POP                                 ; [r1, 2a, sqrt]
+POP                                 ; [r1, 2a]
+PUSH $R                             ; [r1, 2a, -b-sqrt]
+DIV                                 ; [r1, 2a, -b-sqrt]	    $R = (-b - sqrt) / 2a
+POP                                 ; [r1, 2a]
+POP                                 ; [r1]
+PUSH $R                             ; [r1, r2]
+OUT
+PUSHR
+POP
+OUT
+PUSH $R

@@ -1,0 +1,5 @@
+PUSH 2      ; [2]
+PUSH 3      ; [2, 3]
+SUB         ; [2, 3]    $R = 1
+PUSH $R     ; [2, 3, $R]
+OUT

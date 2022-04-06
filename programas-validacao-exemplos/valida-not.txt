@@ -1,0 +1,4 @@
+PUSH 12
+OUT
+NOT
+OUT

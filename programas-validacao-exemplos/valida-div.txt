@@ -1,0 +1,5 @@
+PUSH 2      ; [2]
+PUSH 8      ; [2, 8]
+DIV         ; [2, 8]    $R = 4
+PUSH $R     ; [2, 8, $R]
+OUT

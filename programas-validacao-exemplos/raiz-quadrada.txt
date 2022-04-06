@@ -1,0 +1,39 @@
+PUSH 625
+PUSHR
+POP
+IF0 retornaReg
+IF1 retornaReg
+JMP calcula
+
+retornaReg:
+PUSH $R
+OUT
+
+calcula:
+MOVM2 1
+MOVM1 $R
+PUSH 1
+PUSHR
+POP
+JGE laço
+JMP fim
+
+laço:
+INCR M2
+PUSH M2
+PUSH M2
+MUL
+POP
+POP
+
+JGE laço
+
+fim:
+PUSH 1
+PUSH M2
+SUB
+POP
+POP
+PUSH $R
+
+OUT

@@ -1,0 +1,67 @@
+; N-ésimo número primo
+; n=6
+; primeiro valor da pilha = contador
+;
+PUSH 1
+PUSH NNN
+SUB
+IF0 end
+;
+POP
+PUSH 2
+PUSH 3	;[1, 2, 3]
+;
+laco:
+MOD ;$R = resto
+;
+IF0 naoprimo
+;
+PUSHR ;$R = topo
+POP
+INC
+PUSH $R
+;
+SUB
+IF0 primo
+JMP laco
+;
+primo:
+PUSHR
+POP
+POP ;[1]
+INC
+PUSH NNN ;[2, 6]
+;
+PUSH $R ;[2, 6, 3]
+SUB2 ;$R = 4
+IF0 end2
+INC
+PUSHR
+POP
+POP
+PUSH 2
+PUSH $R
+JMP laco
+;
+naoprimo:
+INC
+PUSHR
+POP
+POP
+PUSH 2
+PUSH $R
+JMP laco
+;
+end:
+POP
+POP
+PUSH 2
+OUT
+;
+end2:
+PUSHR
+POP
+POP
+POP
+PUSH $R
+OUT

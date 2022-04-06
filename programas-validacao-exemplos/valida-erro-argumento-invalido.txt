@@ -1,0 +1,7 @@
+PUSH 4
+;ADD 3
+;SUB 4
+;MUL 5
+;DIV 7
+;MOD 2
+OUT

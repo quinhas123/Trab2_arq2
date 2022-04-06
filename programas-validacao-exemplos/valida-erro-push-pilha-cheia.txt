@@ -1,0 +1,146 @@
+MOVM1 127
+PUSH 0                  ; [0]
+PUSH 0                  ; [0, 0]
+ADD                     ; [0, 0]    $R = 0
+POP
+POP                     ; []
+
+laco_preenche:
+PUSH 1
+INCR $R
+
+JGE laco_preenche       ; M1 >= $R
+
+;PUSH 1
+OUT
+
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;PUSH 1
+;OUT
