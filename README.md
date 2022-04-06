@@ -1,76 +1,76 @@
-[[ simulador de máquina de pilha ]]
+<h1>Simulador de máquina de pilha</h1>
 
 ##  base
-++  [X] $R
-++  [X] Validar programa soma 4 e 8
-++  [ ] Registradores e palavras com 16 bits
-++  [ ] Pilha possui 128 palavras.
-++  [ ] PC para o topo da pilha.
+++  [X] $R <br>
+++  [X] Validar programa soma 4 e 8 <br>
+++  [ ] Registradores e palavras com 16 bits <br>
+++  [ ] Pilha possui 128 palavras. <br>
+++  [ ] PC para o topo da pilha. <br>
 
 ##  operações aritméticas trabalhando sobre o topo da pilha e armazenando em $R
-++  [X] ADD
-++  [X] SUB
-++  [X] MUL
-++  [X] DIV
-++  [X] MOD
+++  [X] ADD <br>
+++  [X] SUB <br>
+++  [X] MUL <br>
+++  [X] DIV <br>
+++  [X] MOD <br>
 
-##  operações lógicas (devem armazenar em $R ou não ?)
-++  [ ] NOT
-++  [ ] OR
-++  [ ] AND
-++  [ ] MIR
+##  operações lógicas
+++  [ ] NOT <br>
+++  [ ] OR <br>
+++  [ ] AND <br>
+++  [ ] MIR <br>
 
 ##  operações de controle
-++  [X] PUSH
-++  [X] POP
+++  [X] PUSH <br>
+++  [X] POP <br>
 
 ##  in/out
 ++  [X] OUT
 
 ##  aplicações
-++  [X] Bhaskara --> R1 e R2 na pilha.
-++  [X] Raiz quadrada --> uma única resposta na pilha.
-++  [X] Cálculo do N-ésimo número primo --> única resposta na pilha.
-++  [ ] Outra aplicação.
+++  [X] Bhaskara --> R1 e R2 na pilha. <br>
+++  [X] Raiz quadrada --> uma única resposta na pilha. <br>
+++  [X] Cálculo do N-ésimo número primo --> única resposta na pilha. <br>
+++  [ ] Outra aplicação. <br>
 
 ##  erros básicos
-++  [X] 000 - Erro de sintaxe - 0 ou 1 operandos (PUSH ou POP).
-++  [X] 001 - Instrução inválida.
-++  [X] 002 - Argumento inválido. Conferir se o argumento condiz com a instrução.
-++  [X] 003 - POP em pilha vazia.
-++  [X] 004 - PUSH em pilha cheia.
+++  [X] 000 - Erro de sintaxe - 0 ou 1 operandos (PUSH ou POP). <br>
+++  [X] 001 - Instrução inválida. <br>
+++  [X] 002 - Argumento inválido. Conferir se o argumento condiz com a instrução. <br>
+++  [X] 003 - POP em pilha vazia. <br>
+++  [X] 004 - PUSH em pilha cheia. <br>
 
 ##  extras
-++  --> labels => usado para os jumps
-++  --> IF0    => pula se $R = 0
-++  --> IF1    => pula se $R = 1
-++  --> JGE    => pula se M1 >= $R
-++  --> INC    => incrementa o valor no topo da pilha
-++  --> INCR   => incrementa o registrador dado como operando
-++  --> M1     => registrador auxiliar
-++  --> M2     => registrador auxiliar
-++  --> SUB2   => subtrai o penúltimo e antepenúltimo elementos da pilha
-++  --> MOVM1  => coloca o valor do operando em M1
-++  --> MOVM2  => coloca o valor do operando em M2
+++  --> labels => usado para os jumps <br>
+++  --> IF0    => pula se $R = 0 <br>
+++  --> IF1    => pula se $R = 1 <br>
+++  --> JGE    => pula se M1 >= $R <br>
+++  --> INC    => incrementa o valor no topo da pilha <br>
+++  --> INCR   => incrementa o registrador dado como operando <br>
+++  --> M1     => registrador auxiliar <br>
+++  --> M2     => registrador auxiliar <br> 
+++  --> SUB2   => subtrai o penúltimo e antepenúltimo elementos da pilha <br>
+++  --> MOVM1  => coloca o valor do operando em M1 <br>
+++  --> MOVM2  => coloca o valor do operando em M2 <br>
 ++  --> PUSHR  => coloca o valor do topo da pilha em $R
 
 ##  validação de operações
-++  [X] ADD
-++  [X] SUB
-++  [X] MUL
-++  [X] DIV
-++  [X] MOD
-++  [X] POP
-++  [ ] NOT
-++  [ ] OR
-++  [ ] AND
+++  [X] ADD <br>
+++  [X] SUB <br>
+++  [X] MUL <br>
+++  [X] DIV <br>
+++  [X] MOD <br>
+++  [X] POP <br>
+++  [ ] NOT <br>
+++  [ ] OR <br>
+++  [ ] AND <br>
 ++  [X] MIR
 
 ##  validação de erros
-++  [X] 000 - Erro de sintaxe - 0 ou 1 operandos (PUSH ou POP).
-++  [X] 001 - Instrução inválida.
-++  [X] 002 - Argumento inválido. Conferir se o argumento condiz com a instrução.
-++  [X] 003 - POP em pilha vazia.
+++  [X] 000 - Erro de sintaxe - 0 ou 1 operandos (PUSH ou POP). <br>
+++  [X] 001 - Instrução inválida. <br>
+++  [X] 002 - Argumento inválido. Conferir se o argumento condiz com a instrução. <br>
+++  [X] 003 - POP em pilha vazia. <br>
 ++  [X] 004 - PUSH em pilha cheia.
 
 ## To-do...
