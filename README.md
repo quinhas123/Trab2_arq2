@@ -3,7 +3,7 @@
 ##  base
 ++  [X] $R <br>
 ++  [X] Validar programa soma 4 e 8 <br>
-++  [ ] Registradores e palavras com 16 bits <br>
+++  [X] Registradores e palavras com 16 bits <br>
 ++  [X] Pilha possui 128 palavras. <br>
 ++  [X] PC para o topo da pilha. <br>
 
@@ -16,8 +16,8 @@
 
 ##  operações lógicas
 ++  [X] NOT <br>
-++  [ ] OR <br>
-++  [ ] AND <br>
+++  [X] OR <br>
+++  [X] AND <br>
 ++  [X] MIR <br>
 
 ##  operações de controle
@@ -62,8 +62,8 @@
 ++  [X] MOD <br>
 ++  [X] POP <br>
 ++  [X] NOT <br>
-++  [ ] OR <br>
-++  [ ] AND <br>
+++  [X] OR <br>
+++  [X] AND <br>
 ++  [X] MIR
 
 ##  validação de erros
